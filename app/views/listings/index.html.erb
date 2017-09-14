@@ -1,0 +1,25 @@
+<h1>Top <%= @res_count %> listings for <%= @url %></h1>
+
+<% @tables.each do |table| %>
+  <h2 style="text-align:center">Listings less than $<%= table[:price_limit] %></h4>
+  <table style="width:100%">
+    <thead>
+      <tr>  
+        <th>Title</th>
+        <th>Price</th>
+        <th>Date</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% table[:listings].each do |listing| %>
+        <tr>
+          <td><%= raw listing.title %></td>
+          <td><%= number_to_currency(listing.price) %></td>
+          <td><%= listing.issue_date %></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+  <br>
+  <br>
+<% end %>

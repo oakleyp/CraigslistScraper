@@ -1,5 +1,8 @@
 {
   "name": "AdwerxDemo",
   "private": true,
-  "dependencies": {}
+  "dependencies": {},
+  "scripts": {
+    "start": "rails db:create && rails db:migrate && open http://localhost:3000/listings/create && rails s"
+  }
 }
