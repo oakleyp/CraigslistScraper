@@ -6,7 +6,7 @@ class ListingsController < ApplicationController
 
   def create 
     cs = CraigslistScraper.new(@url)
-    listings = cs.getListings(@res_count).sort! { |a, b| a[:price] <=> b[:price] }
+    listings = cs.getListings(@res_count)
 
     listings.each do |listing| 
       #Ensure no duplicate listing records are created
