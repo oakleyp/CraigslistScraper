@@ -1,4 +1,5 @@
 require 'rss'
+require 'cgi'
 require 'open-uri'
 
 class CraigslistScraper
@@ -8,8 +9,14 @@ class CraigslistScraper
 
   # Returns price as float given xml item title, or 0 if not found
   def getPrice(title_str) 
-    title_str.scan(/(\s&#x0024;)+([0-9]+)+(.[0-9]+)\s/).first
-             .join.gsub('&#x0024;', '').strip! .to_f rescue 0.0
+    return 0.0 if title_str.nil?
+    matchstr = CGI.unescapeHTML(title_str).scan(/[$](\d+(?:\.\d{1,2})?)/)
+    if !matchstr.nil? && matchstr.count > 0
+      matchstr = matchstr.last[0].to_f rescue 0.0
+      return matchstr
+    end
+
+    return 0.0
   end
 
   # Returns given number of results, newest first, as a hash array 

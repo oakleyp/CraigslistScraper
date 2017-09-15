@@ -1,11 +1,17 @@
 require 'craigslist_scraper.rb'
 
+DEFAULT_URL = 'https://raleigh.craigslist.org/search/apa'
+DEFAULT_RES_COUNT = 1000
+
 class ListingsController < ApplicationController
   before_action :set_url
   before_action :set_res_count
 
   def create 
     cs = CraigslistScraper.new(@url)
+
+    # These processes could probably run in the background and have some AJAX callback
+    # if there was a real front-end for this app
     listings = cs.getListings(@res_count)
 
     listings.each do |listing| 
@@ -28,11 +34,11 @@ class ListingsController < ApplicationController
   private # Leaving room for the possibility that these will be set by query params
 
   def set_url
-    @url = 'https://raleigh.craigslist.org/search/apa'
+    @url = DEFAULT_URL
   end
 
   def set_res_count 
-    @res_count = 1000
+    @res_count = DEFAULT_RES_COUNT
   end
 
   #Create objects for tables of each different price range in defined increments
