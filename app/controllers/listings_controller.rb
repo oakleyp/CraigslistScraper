@@ -42,7 +42,7 @@ class ListingsController < ApplicationController
     inc_count = 1
 
     results = [{
-      price_limit: 200,
+      price_limit: increment,
       listings: []
     }]
 
