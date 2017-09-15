@@ -10,18 +10,12 @@ class ListingsController < ApplicationController
   def create 
     cs = CraigslistScraper.new(@url)
 
-    # These processes could probably run in the background and have some AJAX callback
-    # if there was a real front-end for this app
+    # If this had a real front end, the scraping and saving process
+    # could run in the background and have some AJAX callback
+    # function render the results when they're done processing
     listings = cs.getListings(@res_count)
 
-    listings.each do |listing| 
-      #Ensure no duplicate listing records are created
-      Listing.create(listing) if Listing.where({
-          title: listing[:title], 
-          price: listing[:price],
-          issue_date: listing[:issue_date]
-        }).count == 0
-    end
+    listings.each { |listing| Listing.create(listing) }
 
     redirect_to root_path
   end
