@@ -1,5 +1,7 @@
 # Craigslist Scraper 
 
+Interview Assessment: A Rails app that scrapes a given number of listings from Craigslist by URL, and displays them in a sorted table in given increments.
+
 ## To start
 
 #### In at least one version of OSx:
